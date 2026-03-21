@@ -13,6 +13,7 @@ class MenuController extends Controller
         $tableNumber = $request->query('meja');
         if ($tableNumber) {
             Session::put('tableNumber', $tableNumber);
+            $cart = []; // Initialize $cart as an empty array
             Session::put('cart', $cart);
         }
 
@@ -23,8 +24,8 @@ class MenuController extends Controller
 
     public function cart()
     {
-        $cart =Session::get('cart');
-        return view('customer.cart');
+        $cart = Session::get('cart', []);
+        return view('customer.cart', compact('cart'));
     }
 
     public function addToCart(Request $request)
@@ -48,7 +49,7 @@ class MenuController extends Controller
                 'id' => $menu->id,
                 'name' => $menu->name,
                 'price' => $menu->price,
-                'imge' => $menu->img,
+                'img' => $menu->img,
                 'qty' => 1
             ];
         }
