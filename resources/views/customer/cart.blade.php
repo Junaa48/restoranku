@@ -34,50 +34,49 @@
 
                             @foreach ($cart as $item)
                                 @php
-                                    $itemTotal = $item['price'] * $item['quantity'];
+                                    $itemTotal = $item['price'] * $item['qty'];
+                                    $subtotal += $itemTotal;
                                 @endphp
+                                <tr>
+                                    <th scope="row">
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ $item['img'] }}"
+                                                class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;"
+                                                alt="">
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <p class="mb-0 mt-4">{{ $item['name'] }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 mt-4">Rp{{ number_format($item['price'], 0, ',', '.') }}</p>
+                                    </td>
+                                    <td>
+                                        <div class="input-group quantity mt-4" style="width: 100px;">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input type="text" class="form-control form-control-sm text-center border-0"
+                                                value="{{ $item['qty'] }}">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 mt-4">Rp{{ number_format($itemTotal, 0, ',', '.') }}</p>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-md rounded-circle bg-light border mt-4">
+                                            <i class="fa fa-times text-danger"></i>
+                                        </button>
+                                    </td>
+                                </tr>
                             @endforeach
-
-                            <tr>
-                                <th scope="row">
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://images.unsplash.com/photo-1591325418441-ff678baf78ef"
-                                            class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;"
-                                            alt="">
-                                    </div>
-                                </th>
-                                <td>
-                                    <p class="mb-0 mt-4">Ichiraku Ramen</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">Rp25.000,00</p>
-                                </td>
-                                <td>
-                                    <div class="input-group quantity mt-4" style="width: 100px;">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center border-0"
-                                            value="1">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">Rp25.000,00</p>
-                                </td>
-                                <td>
-                                    <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                        <i class="fa fa-times text-danger"></i>
-                                    </button>
-                                </td>
-
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -89,18 +88,18 @@
                                 <h2 class="display-6 mb-4">Total <span class="fw-normal">Pesanan</span></h2>
                                 <div class="d-flex justify-content-between mb-4">
                                     <h5 class="mb-0 me-4">Subtotal</h5>
-                                    <p class="mb-0">Rp85.000,00</p>
+                                    <p class="mb-0">Rp{{ number_format($subtotal, 0, ',', '.') }}</p>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-0 me-4">Pajak (10%)</p>
                                     <div class="">
-                                        <p class="mb-0">Rp8.500,00</p>
+                                        <p class="mb-0">Rp{{ number_format($subtotal * 0.1, 0, ',', '.') }}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="py-4 mb-4 border-top d-flex justify-content-between">
                                 <h4 class="mb-0 ps-4 me-4">Total</h4>
-                                <h5 class="mb-0 pe-4">Rp93.500,00</h5>
+                                <h5 class="mb-0 pe-4">Rp{{ number_format($subtotal + ($subtotal * 0.1), 0, ',', '.') }}</h5>
                             </div>
 
                         </div>

@@ -10,8 +10,8 @@
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="#" class="nav-item nav-link">Home</a>
-                    <a href="/" class="nav-item nav-link active">Menu</a>
+                    <a href="/" class="nav-item nav-link active">Home</a>
+                    <a href="/menu" class="nav-item nav-link">Menu</a>
                     <a href="#" class="nav-item nav-link">Kontak</a>
                 </div>
                 <div class="d-flex m-3 me-0">

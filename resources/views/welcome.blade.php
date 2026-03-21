@@ -42,14 +42,14 @@
         <div class="container-fluid fixed-top">
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="#" class="navbar-brand"><h1 class="text-primary display-6">Restoranku</h1></a>
+                    <a href="{{ route('welcome') }}" class="navbar-brand"><h1 class="text-primary display-6">Restoranku</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="#" class="nav-item nav-link">Home</a>
-                            <a href="menu.html" class="nav-item nav-link active">Menu</a>
+                            <a href="{{ route('welcome') }}" class="nav-item nav-link active">Home</a>
+                            <a href="{{ route('menu') }}" class="nav-item nav-link">Menu</a>
                             <a href="#" class="nav-item nav-link">Kontak</a>
                         </div>
                         <div class="d-flex m-3 me-0">
@@ -339,8 +339,8 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-item">
                             <h4 class="text-light mb-3">Hubungi Kami</h4>
-                            <p>Alamat: Jl. Sangkuriang No.8, Padasuka, Kec. Cimahi Tengah, Kota Cimahi, Jawa Barat 40526</p>
-                            <p>Email: info@codepolitan.com</p>
+                            <p>Alamat: Cluster Akasia Blok D2 No. 9</p>
+                            <p>Email: aruma@codepolitan.com</p>
                             <p>Telp: 0899-9488-990</p>
                         </div>
                     </div>
