@@ -54,14 +54,13 @@
                                     <td>
                                         <div class="input-group quantity mt-4" style="width: 100px;">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                <button class="btn btn-sm btn-minus rounded-circle bg-light border" onclick="updateQuantity('{{ $item['id'] }}', -1)">
                                                     <i class="fa fa-minus"></i>
                                                 </button>
                                             </div>
-                                            <input type="text" class="form-control form-control-sm text-center border-0"
-                                                value="{{ $item['qty'] }}">
+                                            <input id="qty-{{ $item['id'] }}" type="text" class="form-control form-control-sm text-center border-0" value="{{ $item['qty'] }}" readonly>
                                             <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                <button class="btn btn-sm btn-plus rounded-circle bg-light border" onclick="updateQuantity('{{ $item['id'] }}', 1)">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
@@ -71,7 +70,7 @@
                                         <p class="mb-0 mt-4">Rp{{ number_format($itemTotal, 0, ',', '.') }}</p>
                                     </td>
                                     <td>
-                                        <button class="btn btn-md rounded-circle bg-light border mt-4">
+                                        <button class="btn btn-md rounded-circle bg-light border mt-4" onclick="if (confirm('Apakah Anda yakin ingin menghapus item ini dari keranjang?')) {removeItemFromCart('{{ $item['id'] }}')}">
                                             <i class="fa fa-times text-danger"></i>
                                         </button>
                                     </td>
@@ -115,4 +114,43 @@
             @endif
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        function updateQuantity(itemId, change) {
+            var qtyInput = document.getElementById('qty-' + itemId);
+            var currentQty = parseInt(qtyInput.value);
+            var newQty = currentQty + change;
+
+            if (newQty <= 0 ) {
+                if (confirm('Apakah Anda yakin ingin menghapus item ini dari keranjang?')) {
+                    removeItemFromCart(itemId);
+                }
+                return
+            }
+            
+            fetch("{{ route('cart.update') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ id: itemId, qty: newQty })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    qtyInput.value = newQty;
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat memperbarui jumlah item. Silakan coba lagi.');
+            });
+        }
+    </script>
 @endsection
