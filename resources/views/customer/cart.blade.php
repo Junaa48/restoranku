@@ -79,6 +79,16 @@
                         </tbody>
                     </table>
                 </div>
+
+                @php
+                    $tax = $subtotal * 0.1;
+                    $total = $subtotal + $tax;
+                @endphp
+
+                <div class="d-flex justify-content-end">
+                    <a href="{{ route('cart.clear') }}" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin mengosongkan keranjang?')">Kosongkan Keranjang</a>
+                </div>
+
                 <div class="row g-4 justify-content-end mt-1">
                     <div class="col-8"></div>
                     <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
@@ -105,8 +115,7 @@
                         <div class="d-flex justify-content-end">
                             <div class="mb-0 mb-3">
                                 <a href="{{ route('checkout') }}"
-                                    class="btn border-secondary py-3 text-primary text-uppercase mb-4" type="button">Lanjut
-                                    ke Pembayaran</a>
+                                    class="btn border-secondary py-3 text-primary text-uppercase mb-4" type="button">Lanjut ke Pembayaran</a>
                             </div>
                         </div>
                     </div>
@@ -150,6 +159,29 @@
             .catch((error) => {
                 console.error('Error:', error);
                 alert('Terjadi kesalahan saat memperbarui jumlah item. Silakan coba lagi.');
+            });
+        }
+
+        function removeItemFromCart(itemId) {
+            fetch("{{ route('cart.remove') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ id: itemId})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat menghapus item dari keranjang. Silakan coba lagi.');
             });
         }
     </script>
