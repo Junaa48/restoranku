@@ -14,6 +14,4 @@ Route::post('/cart/update', [MenuController::class, 'updateCart'])->name('cart.u
 Route::post('/cart/remove', [MenuController::class, 'removeItemFromCart'])->name('cart.remove');
 Route::get('/cart/clear', [MenuController::class, 'clearCart'])->name('cart.clear');
 
-Route::get('/checkout', function () {
-    return view('customer.checkout');
-})->name('checkout');
+Route::get('/checkout', [MenuController::class, 'checkout'])->name('checkout');
