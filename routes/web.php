@@ -15,3 +15,4 @@ Route::post('/cart/remove', [MenuController::class, 'removeItemFromCart'])->name
 Route::get('/cart/clear', [MenuController::class, 'clearCart'])->name('cart.clear');
 
 Route::get('/checkout', [MenuController::class, 'checkout'])->name('checkout');
+Route::post('/checkout/store', [MenuController::class, 'storeOrder'])->name('checkout.store');
